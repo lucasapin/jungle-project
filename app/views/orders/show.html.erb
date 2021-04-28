@@ -6,8 +6,52 @@
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
+<div class="panel panel-default items">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |item| %>
+          <%= render 'item_order', product: item.product, quantity: item.quantity %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            TOTAL:
+          </th>
+          <th>
+            <%= humanized_money_with_symbol cart_subtotal_cents / 100.0 %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
 </section>
+
+
+ <%# <h1> <%= @order.inspect %> </h1>
+
+  <% @order.line_items.each do |item| %>
+
+  <h3><%= item.product.inspect %></h3>
+  <h3><%= item.product.name%></h3>
+  <h3><%= item.product.description%></h3>
+  <h3><%= image_tag item.product.image%></h3>
+  <h3><%= item.inspect %></h3>
+  <h3><%= item.quantity %></h3>
+  <%end%>
+
+  <h1> <%= @order.email %> </h1>
+  <h2> <%= humanized_money_with_symbol @order.total_cents / 100 %> </h2> %>
